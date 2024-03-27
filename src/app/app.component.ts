@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Photos } from './classes/photos';
-import { Observable, from, of } from 'rxjs';
+import { Observable, first, from, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -61,15 +61,28 @@ export class AppComponent  implements OnInit {
   ngOnInit(){
     this.OnAlbumSelected(2);
     this.myobservable.subscribe((val: any) => {
+      console.log('Using Not first operator');
       console.log(val);
     },(error: { message: any; }) => {
       alert(error.message);
-    },() => alert('observable has completed emitting all values'))
+    },() => alert('observable has 1st time completed emitting all values'));
+
+    this.myobservable1.pipe(first()).subscribe((val: any) => {
+      console.log('Using first operator');
+      console.log(val);
+    },(error: { message: any; }) => {
+      alert(error.message);
+    },() => alert('observable has 2nd time completed emitting all values'));
+
+
   }
 
   OnAlbumSelected(selectedAlbumId:number):void{
     
   this.lstStaticData = this.lstStaticData.filter(m=>m.albumId == selectedAlbumId);
   }
+
+
+  
 
 }
