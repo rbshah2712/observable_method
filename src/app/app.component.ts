@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Photos } from './classes/photos';
 import { Observable, first, from, of } from 'rxjs';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers:[PostService]
 })
 export class AppComponent  implements OnInit {
   title = 'observable_method';
@@ -57,6 +59,9 @@ export class AppComponent  implements OnInit {
 
   myobservable2 = from(this.array1); //it takes only 1 argument and also of iterable type
 
+  constructor(private postservice:PostService){
+    
+  }
   
   ngOnInit(){
     this.OnAlbumSelected(2);
